@@ -7,8 +7,8 @@ const colors = require('colors/safe')
 // (valida se é arquivo .md)
 function validateFile(file,options){
     if(path.extname(file) === '.md'){
-      // console.log(file)
-        readFile(file,options)
+      // console.log(       file)
+        mdLinks(file,options)
     }else{
         console.log(colors.magenta.bold('***** Arquivo invalido(.md)*****'))
     }
@@ -16,9 +16,9 @@ function validateFile(file,options){
 validateFile(process.argv[2], process.argv[3])
 
 //lendo arquivo 
-function readFile(file,options){
+function mdLinks(file,options){
     const string = fs.readFileSync(file, 'utf-8')
-    // console.log(string)
+    console.log(string)
     getLinks(string,options)
 }
 
@@ -27,7 +27,7 @@ function getLinks(string,options){
     const expReg = /(https?:)([\w\.\/\-\#\?\=\&]+)/g
     const links = string.match(expReg)
     // console.log(links)
-          if(options==="validateAndStats"){
+        if(options==="validateAndStats"){
             validateAndStats(links)
         }else if(options==="--validate"){
             onlyValidate(links)
@@ -35,8 +35,31 @@ function getLinks(string,options){
             onlyStats(links)
         } else {
           //função retornando links sem validação
+        
         }
 }
+// const read = (file) => {
+//   const regexMdlinks = expReg
+//   const arr = [];
+//   return new Promise ((resolve, rejects) => {
+// fs.readFile(file,'utf8', (err, data) => {
+//     if (err){
+//       rejects (err.message);
+//   } else {
+//       const regex = data.match(regexMdlinks)
+//       regex.forEach((el) => {
+//         const Text = el.split('](');
+//         const title = Text[0].replace('\n','');
+//       const href =Text[1]
+//       arr.push( {title, href, file})
+//       })
+//       resolve(arr)
+//       console.log(arr)
+//     }
+// });
+// });
+
+
 
 //Validando os links 
 function validateAndStats(links){ 
@@ -77,14 +100,14 @@ function statsLinksValidate (res){
     console.log(colors.magenta.bold('Broken links: ', res.reduce((accountant, element) => {
         if (element.status !== 200){
             return accountant += 1
-          }
-          return accountant
+        }
+        return accountant
         },0)))
     console.log(colors.green.bold('Functional links: ', res.reduce((accountant, elemento) => {
         if (elemento.status === 200){
             return accountant += 1
-          }
-          return accountant
+        }
+        return accountant
         },0)))
 
     return res
@@ -121,8 +144,9 @@ function onlyValidate(links){
     return Promise.all(promises)
 }
 
+
 module.exports = {
-    readFile,
+    mdLinks,
     validateFile
 }
 
