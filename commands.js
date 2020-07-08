@@ -9,9 +9,10 @@ const options={
 //Crie a variável argv. Yargs
 
 const argv=require('yargs')
-  .command('validate','Comando para validar os links',options)
-  .command('stats','Comando para obter estatisticas',options)
-  .command('validate¬stats','Comando para validar links e obter estatisticas',options)
+  .command('--validate','Comando para validar os links',options)
+  .command('--stats','Comando para obter estatisticas',options)
+  .command('--validateAndStats','Comando para validar links e obter estatisticas',options)
+  .command('', 'comando para trazer sem validar',options)
   .help()
   .argv
 

@@ -4,24 +4,25 @@ const colors = require('colors/safe')
 const { mdLinks,validateFile } = require('./index.js')
 //Se você usa as informações da posição 0 do process.arg()
 const command=argv._[0]
+console.log(command)
 
 
 //Switch avalie cada case na posição 0 do código process.argv
 switch(command){
-  case 'validate':
-    console.log(colors.yellow.bold(' A L I D A T E D  L I N K S '))
+  case '--validate':
+    console.log(colors.yellow.bold('VALIDATED LINKS'))
     //validateLinks(argv.file)
     mdLinks(argv.file,"--validate")
     break;
-  case 'stats':
-    console.log(colors.yellow.bold(' S T A T S '))
+  case '--stats':
+    console.log(colors.yellow.bold('STATS'))
     mdLinks(argv.file,"--stats")
     break;
-  case 'validate-stats':
-    console.log(colors.yellow.bold(' V A L I D A T E D  L I N K S  &  S T A T S '))
-    validateFile(argv.file,"validateAndStats")
+  case '--validateAndStats':
+    console.log(colors.yellow.bold('VALIDATED LINKS & STATS'))
+    validateFile(argv.file,"--validateAndStats")
     break;
   default:
-    console.log(colors.yellow.bold(' N E E D  H E L P ?  --help '))
+    console.log(colors.yellow.bold('NEED HELP? --help'))
 }
   
