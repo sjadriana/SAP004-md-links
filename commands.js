@@ -6,7 +6,7 @@ const options={
 }
 
 //
-//Crie a variável argv. Yargs
+//Cria a variável argv. Yargs
 
 const argv = require('yargs')
   .command('--validate','Comando para validar os links',options)

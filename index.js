@@ -1,7 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 const fetch = require('node-fetch')
-const colors = require('colors/safe')
+const colors = require('colors')
 
 
 // (valida se é arquivo .md)
@@ -10,7 +10,7 @@ function validateFile(file,options){
       // console.log(       file)
         mdLinks(file,options)
     }else{
-        console.log(colors.magenta.bold('***** Arquivo invalido(.md)*****'))
+        console.log(colors.magenta.bold('Plese insert a valid file(.md)'))
     }
 } 
 validateFile(process.argv[2], process.argv[3])
@@ -81,7 +81,7 @@ function readFile (file){
         arr.push( {title, href, file})
         })
         resolve(arr)
-       // console.log(arr)
+        console.log(arr)
     }
     });
     });
@@ -151,7 +151,7 @@ function onlyValidate(links){
             text: res.statusText
         }
             if(resp.status === 200){
-                console.log(colors.magenta(res.status), colors.cyan(res.statusText), ('url:', link), readFile(file) )
+                console.log(colors.magenta(res.status), colors.cyan(res.statusText), ('url:', link))
             }else{
                 console.log(colors.yellow(res.status), colors.green(res.statusText),('url:', link))
             }
