@@ -21,9 +21,9 @@
     "url": "https://github.com/sjadriana/SAP004-md-links/issues"
   },
   "homepage": "https://github.com/sjadriana/SAP004-md-links#readme",
-  "bin":{
+  "bin": {
     "md-links": "cli.js"
-    },
+  },
   "dependencies": {
     "@babel/plugin-proposal-class-properties": "^7.10.4",
     "axios": "^0.19.2",
