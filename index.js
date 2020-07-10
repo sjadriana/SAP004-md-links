@@ -18,7 +18,7 @@ validateFile(process.argv[2], process.argv[3])
 //lendo arquivo 
 function mdLinks(file,options){
     const string = fs.readFileSync(file, 'utf-8')
-    console.log(string)
+    //console.log(string)
     getLinks(string,options)
 }
 
@@ -53,7 +53,7 @@ function mdLinks(file,options){
 function getLinks(string,options){
     const expReg = /(https?:)([\w\.\/\-\#\?\=\&]+)/g
     const links = string.match(expReg)
-    // console.log(links)
+     //console.log(links)
         if(options==="validateAndStats"){
             validateAndStats(links)
         }else if(options==="--validate"){
@@ -120,10 +120,10 @@ function validateAndStats(links){
     })
     )
     return Promise.all(promises)
-    .then(res => statsLinksValidate(res))
+    .then(res =>  onlyStats(res))
 }
 
-function statsLinksValidate (res){
+function  onlyStats (res){
     console.log(colors.rainbow('Total links: '), (res.length))
     console.log(colors.magenta.bold('Broken links: ', res.reduce((accountant, element) => {
         if (element.status !== 200){
@@ -142,7 +142,7 @@ function statsLinksValidate (res){
 }
 
 //pegando os links
-function onlyValidate(links){ 
+function onlyValidate(links){ //console.log(links)
     let promises = links.map(link => fetch(link)
         .then (res => {
         let resp = {
@@ -151,7 +151,7 @@ function onlyValidate(links){
             text: res.statusText
         }
             if(resp.status === 200){
-                console.log(colors.magenta(res.status), colors.cyan(res.statusText), ('url:', link))
+                console.log(colors.magenta(res.status), colors.cyan(res.statusText), colors.blue(('url:', link)))
             }else{
                 console.log(colors.yellow(res.status), colors.green(res.statusText),('url:', link))
             }

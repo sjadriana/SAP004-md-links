@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 const argv=require('./commands').argv
-const colors = require('colors/safe')
+const colors = require('colors')
 const { mdLinks,validateFile } = require('./index.js')
 //Se você usa as informações da posição 0 do process.arg()
 const command=argv._[0]
@@ -12,7 +12,7 @@ switch(command){
   case '--validate':
     console.log(colors.yellow.bold('VALIDATED LINKS'))
     //validateLinks(argv.file)
-    mdLinks(argv.file,"--validate")
+    mdLinks(argv.file,'--validate')
     break;
   case '--stats':
     console.log(colors.yellow.bold('STATS'))
