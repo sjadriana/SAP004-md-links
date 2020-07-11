@@ -1,3 +1,3 @@
 const mdLinks = require('./md-links');
 
-mdLinks("README.md", {validate: true});
+mdLinks("README.md", {validate: false});

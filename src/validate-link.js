@@ -1,7 +1,7 @@
 const fetch = require('node-fetch')
 
 module.exports = (data) => {
-  return new Promise((resolve, rejects) => {
+  return new Promise((resolve) => {
     fetch(data.href)
       .then(response => {
         const { status } = response;

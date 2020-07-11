@@ -17,24 +17,23 @@ module.exports = (file, options) => {
         const link = item.split('](');
         const title = link[0].replace('\n','');
         const href = link[1];
+        response.push({title, href, file});
 
-        let data = {title, href, file};
-        if (options.validate) {
-          validateLink(data).then((response => {
-            data = response;
-            // console.log(colors.magenta.bold(`${response.file} ${response.href} ${response.statusMessage} ${response.status} ${response.title}`)); // console.log como exemplo de exibição da linha de comando
-          }));
-        } else {
-          // console.log(colors.magenta.bold(`${data.file} ${data.href} ${data.text}`)); // console.log como exemplo de exibição da linha de comando
-        }
-
-        response.push(data);
       });
-
-
       return resolve(response)
     });
-  }).catch(() => {
+  }).then((items) => {
+    //- Case if validate is required
+    if (options.validate) {
+      const promises = items.map((item) => {
+        return validateLink(item);
+      });
+      return Promise.all(promises);
+    }
+
+    return new Promise((resolve => resolve(items)));
+  })
+  .catch(() => {
     console.log(colors.magenta.bold('Please insert a valid file(.md)'))
   });
-}
+};
