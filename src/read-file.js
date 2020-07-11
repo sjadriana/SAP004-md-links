@@ -1,5 +1,6 @@
-const colors = require('colors')
-const fs = require('fs')
+const colors = require('colors');
+const fs = require('fs');
+const validateLink = require('./validate-link');
 
 module.exports = (file, options) => {
   const response = [];
@@ -16,10 +17,21 @@ module.exports = (file, options) => {
         const link = item.split('](');
         const title = link[0].replace('\n','');
         const href = link[1];
-        response.push({title, href, file});
+
+        let data = {title, href, file};
+        if (options.validate) {
+          validateLink(data).then((response => {
+            data = response;
+            // console.log(colors.magenta.bold(`${response.file} ${response.href} ${response.statusMessage} ${response.status} ${response.title}`)); // console.log como exemplo de exibição da linha de comando
+          }));
+        } else {
+          // console.log(colors.magenta.bold(`${data.file} ${data.href} ${data.text}`)); // console.log como exemplo de exibição da linha de comando
+        }
+
+        response.push(data);
       });
 
-      console.log(response);
+
       return resolve(response)
     });
   }).catch(() => {

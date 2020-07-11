@@ -26,3 +26,9 @@ Alguns pontos do arquivo `read-file`:
 - Ajuste o return do promise utilizando a palavra reservada `return`;
 - Além disso, chamei o método `catch`. Quando você chama o  `rejects` dentro de um promise, ele lança uma exceção. E você precisa capturar essa exceção dentro do catch;
 
+
+Arquivo `validate-links`
+
+- Criei esse arquivo para receber o link e retornar se é valida e não (statusCode e message [ok, fail])
+- A chamada para esta função fica dentro do arquivo `read-file`. Toda vez que eu capto as informações de um  link (title, href, file), eu verifico se a opção `validate` é verdadeira. Se sim, chamo a função do arquivo `validate-link`
+
