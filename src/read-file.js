@@ -26,7 +26,7 @@ module.exports = (file, options) => {
     //- Case if validate is required
     if (options.validate) {
       const promises = items.map((item) => {
-        return validateLink(item);
+        return  console.log (validateLink(item));
       });
       return Promise.all(promises);
     }
