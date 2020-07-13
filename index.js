@@ -3,9 +3,8 @@ const path = require('path')
 const fetch = require('node-fetch')
 const colors = require('colors')
 const validate = require ('./validate-link.js');
-const readFile = require('./read-file.js')
 const stats = require('./stats.js');
-const validateStats = require('./validate-stats.js');
+
 
 
 
@@ -35,28 +34,33 @@ function getLinks(string,options){
       validate(links)
     } else if(options==="--stats"){
       stats(links)
-    } else if (options === '---validateAndStats') { 
-      validateStats(link)
-    }
+    } 
 }
-  
 
-// function  onlyStats (res){
-//   console.log(colors.rainbow('Total links: '), (res.length))
-//   console.log(colors.magenta.bold('Broken links: ', res.reduce((accountant, element) => {
-//     if (element.status !== 200){
-//       return accountant += 1
-//     }
-//     return accountant
-//       },0)))
-//     console.log(colors.green.bold('Functional links: ', res.reduce((accountant, elemento) => {
-//       if (elemento.status === 200){
-//         return accountant += 1
-//       }
-//       return accountant
-//       },0)))
-//     return res
-// }
+function readFile(file){
+  const regexMdlinks = /([^[]+)\](\([^)]*)/gm
+  const arr = [];
+return new Promise ((resolve, rejects) => {
+  fs.readFile(file,'utf8', (err, data) => {
+  if (err){
+    rejects (err.message);
+  } else { // add else para validate
+    const regex = data.match(regexMdlinks)
+    regex.forEach((el) => {
+    const Text = el.split('](');
+    const title = Text[0].replace('\n','');
+    const href =Text[1]
+    arr.push( {title, href, file})
+    })
+    resolve(arr)
+    console.log(arr)
+  }
+  });
+  });
+}
+  readFile(process.argv[2])
+
+
 
 
  //Validando os links 
