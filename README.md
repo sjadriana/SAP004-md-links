@@ -7,8 +7,7 @@
 Se o arquivo não for uma extensão .md (markdown), o programa não será executado e enviará uma mensagem de erro:
 [![error](img/md.jpg)]()
 
-Caso contrario trará um Objeto com os Links 
-É uma biblioteca que nos permite validar lins, assim como obter
+
 
 ## Validando links
 
